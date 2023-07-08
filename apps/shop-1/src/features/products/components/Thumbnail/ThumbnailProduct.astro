@@ -1,0 +1,17 @@
+---
+export interface Props {
+	title: string;
+	description: string;
+	id: string;
+    banner: string
+}
+
+const { title, description, banner, id } = Astro.props;
+
+---
+
+<article class="bg-neutral-300">
+    <img src={banner} class="aspect-video" />
+    <h1>{title}</h1>
+    <p>{description}</p>
+</article>

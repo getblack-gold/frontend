@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "@ark-ui/solid": "^0.8.1",
+    "@fuel-wallet/sdk": "^0.10.0",
     "@solidjs/router": "^0.8.2",
+    "@tanstack/solid-query": "5.0.0-alpha.70",
     "fuels": "^0.46.0",
     "solid-js": "^1.7.6"
   }

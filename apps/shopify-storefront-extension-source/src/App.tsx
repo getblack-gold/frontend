@@ -1,9 +1,20 @@
-import type { Component } from 'solid-js';
+import type { Component } from 'solid-js'
+import { Routes } from '@solidjs/router'
+import { ScreenAvailableRewards, ScreenDashboard, ScreenEarnRewards, ScreenStatus } from './features'
+
+const Stack = () => {
+  return (
+    <Routes>
+      <ScreenDashboard />
+      <ScreenEarnRewards />
+      <ScreenAvailableRewards />
+      <ScreenStatus />
+    </Routes>
+  )
+}
 
 const App: Component = () => {
-  return (
-    <p class="text-4xl text-green-700 text-center py-20">Hello tailwind!</p>
-  );
-};
+  return <Stack />
+}
 
-export default App;
+export default App

@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThumbnailProduct from '../features/products/components/Thumbnail/ThumbnailProduct.astro';
+import { getProducts } from '../features';
+
+const response = await getProducts({first: 20})
+const results = await response.json()
+const listProducts = results?.data?.products?.edges
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="mx-auto max-w-screen-xl">
+    <ul class="grid grid-cols-3 gap-4">
+      {listProducts?.map((el: {
+        node: {
+          id: string,
+          title: string,
+          handle: string,
+          description: string,
+          variants: {
+            nodes: [{
+              id: string,
+              title: string,
+              availableForSale: boolean
+              quantityAvailable: number
+              price: {
+                amount: string
+                currencyCode: string
+              }
+            }]
+          }
+          images: {
+            nodes: [{
+              url: string,
+              width: number,
+              height: string,
+              altText: string
+            }]
+          },
+        }
+      }) => {
+        const product = el?.node
+        const images = product?.images?.nodes
+        const variants = product?.variants?.nodes
+        return <li>
+          <ThumbnailProduct id={product.handle}
+            variants={variants}
+            banner={images?.[0]?.url}
+            description={product?.description}
+            title={product.title}
+          />
+        </li>
+      })}
+    </ul>
+
+  </main>
+</Layout>

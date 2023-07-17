@@ -1,0 +1,67 @@
+---
+import { getCollections } from '../features';
+import PopoverCart from '../features/cart/ui/Popover/PopoverCart'
+export interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+const response = await getCollections({ first: 3})
+const results = await response.json()
+const collections = results?.data?.collections?.edges
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description">
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header>
+			<a href="/">Go to home page</a>
+
+			<a href="/test">Go to test page</a>
+			<PopoverCart client:load />
+		</header>
+		{collections.map((rawData: {
+			node: {
+				id: string,
+				title: string,
+				description: string,
+				image: null | {
+					url: string
+					width: number
+					height: number
+					altText: string |  null
+				}
+				seo: {
+					description: string | null
+					title: string | null
+				}
+			}
+		}) => {
+			const collection = rawData?.node
+			return <p>{collection.title}</p>
+		})}
+		<slot />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 124, 58, 237;
+		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background-color: #F6F6F6;
+	}
+	code {
+		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+			Bitstream Vera Sans Mono, Courier New, monospace;
+	}
+</style>

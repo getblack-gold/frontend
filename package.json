@@ -2,8 +2,17 @@
   "name": "blackgold-frontend",
   "version": "1.0.0",
   "scripts": {
+    "dev": "concurrently 'pnpm widget:dev' 'pnpm shopify:app:dev'",
+    "widget:dev": "cd apps/widget-loyalty-program && pnpm dev",
+    "widget:build": "cd apps/widget-loyalty-program && pnpm build",
+    "shopify:app:dev": "cd apps/shopify-app && pnpm dev",
+    "headless-shopify-storefront:dev": "cd apps/example-with-headless-shopify-storefront && pnpm dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"**/*.{ts,tsx,md,js,jsx,css}\""
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "prettier": "^3.0.0"
+  }
 }

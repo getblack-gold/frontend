@@ -1,0 +1,33 @@
+---
+import ButtonAddItem from '../../../cart/ui/ButtonAddCartLine/ButtonAddToCart'
+
+export interface Props {
+	title: string;
+	description: string;
+	id: string;
+    banner: string
+    variants: {
+            nodes: [{
+              id: string,
+              title: string,
+              availableForSale: boolean
+              quantityAvailable: number
+              price: {
+                amount: string
+                currencyCode: string
+              }
+            }]
+          }
+
+}
+
+const { title, description, banner, variants } = Astro.props;
+
+---
+
+<article class="bg-neutral-300">
+    <img src={banner} class="aspect-video" />
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <ButtonAddItem itemId={variants[0].id} client:only="solid" /> 
+</article>
